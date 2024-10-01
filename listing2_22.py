@@ -1,3 +1,4 @@
+# async нид, потому что task относится к библиотеке async// какой тип переменной возвращает функция - указывать
 import asyncio
 
 async def delay(delay_second: int)-> int:
