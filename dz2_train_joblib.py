@@ -12,7 +12,7 @@ def timethis(func):
         start = time.time()
         result = func(*args, **kwargs)
         end = time.time()
-        print(f"{func.__name__} выполнен за {end - start:.8f} секунд")
+        print(f"Функция {func.__name__} выполнена за {end - start:.8f} сек")
         return result
     return wrapper
 #Обучаем модель+измеряем время
