@@ -1,0 +1,32 @@
+# Для автоматизации процесса настройки и запуска нескольких контейнеров и их взаимных зависимостей
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: dz7-app
+    depends_on:
+      - db  # Контейнер с приложением зависит от базы данных
+    environment:
+      - DB_HOST=db  # Имя контейнера с базой данных
+      - DB_PORT=5432  # Порт базы данных
+      - DB_USER=postgres  # Пользователь базы данных
+      - DB_PASSWORD=password  # Пароль базы данных
+      - DB_NAME=products  # Имя базы данных
+    ports:
+      - "8080:8080"  # Прообраз порта для приложения
+
+  db:
+    image: postgres:13  # Используем официальный образ PostgreSQL
+    container_name: dz7-db
+    environment:
+      POSTGRES_USER: postgres  # Учетная запись пользователя базы данных
+      POSTGRES_PASSWORD: password  # Пароль для пользователя
+      POSTGRES_DB: products  # Имя базы данных
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  
+    ports:
+      - "5432:5432"  # Прообраз порта для базы данных
+
+volumes:
+  postgres-data:  # Для сохранения данных базы данных
