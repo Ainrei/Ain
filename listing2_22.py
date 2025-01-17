@@ -1,16 +1,32 @@
-# async нид, потому что task относится к библиотеке async// какой тип переменной возвращает функция - указывать
+# импортируем asyncio для работы с асинхронным кодом в Python, который позволяет запускать несколько задач одновременно
 import asyncio
-async def delay(delay_second: int)-> int:
-    print(f'засыпаю на {delay_second} c')
-    await asyncio.sleep(delay_second)
-    print(f'сон в течение{delay_second} c закончился')
-    return delay_second
 
+# функция, которая потом вызовет сообщение
 def call_later():
     print("Меня вызовут в ближайшем будущем!")
+
+
+# асинхронная функция, которая использует await (приостановливает свое выполнение, не блокируя поток выполнения, и ждет завершения другого асинхронного вызова) 
+# указываем тип возвращаемого значения функции как int (целое число)
+
+async def delay (delay_second: int) -> int:
+    # выводим сообщение о том, что идет задержка, ждем указанное время с помощью await asyncio.sleep(delay_second) и затем выводим сообщение о том, что задержка завершилась
+    print (f'засыпаю на {delay_second} секунд')
+    await asyncio.sleep(delay_second)
+    print(f'сон в течение {delay_second} cек закончился')
+    # возвращаем количество секунд, на которые произошла задержка
+    return delay_second
+
+
+# asyncio.get_running_loop() получает текущий цикл событий, в котором работает код
+# loop.call_soon(call_later) добавляет вызов функции call_later в очередь на выполнение. Она будет вызвана, как только текущий код (включая await delay(1)) завершит выполнение, но не блокирует его.
+# await delay(1) вызывает асинхронную задержку на 1 секунду. Во время ожидания может быть выполнен другой код (например, вызов call_later).
+# asyncio.run(main(), debug=True) запускает асинхронную функцию main и управляет циклом событий
+# Параметр debug=True позволяет включить отладочный режим, который может помочь в диагностике проблем
+
+
 async def main():
     loop = asyncio.get_running_loop()
     loop.call_soon(call_later)
     await delay(1)
-
-asyncio.run(main(),debug=True)
+asyncio.run(main(), debug=True)
