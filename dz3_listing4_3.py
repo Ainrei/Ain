@@ -1,22 +1,24 @@
+# Определяем функцию frange, которая генерирует значения от start до stop с шагом increment
 def frange(start, stop, increment):
-  x = start
-  while x < stop:
-    yield x
-    x += increment   # x увеличивается на величину increment
+  x = start  # Инициализируем переменную x значением start
+  while x < stop:  # Пока x меньше stop
+    yield x  # Генерируем текущее значение x
+    x += increment   # Увеличиваем x на величину increment
 
+# Используем функцию frange, чтобы вывести значения от 0 до 4 с шагом 0.5
 for n in frange(0, 4, 0.5):
-  print(n)
+  print(n)  # Печатаем каждое значение, которое возвращает генератор frange
 
-list(frange(0, 1, 0.125))
+# Преобразуем генератор в список и выводим значения от 0 до 1 с шагом 0.125
+list(frange(0, 1, 0.125))  # Сохраняем результат в список
 
-
-
+# Определяем функцию countdown, которая генерирует числа от n до 1 (обратный отсчет)
 def countdown(n):
-  print('Starting to count from', n)
-  while n > 0:
-    yield n
-    n -= 1
-  print('Done!')
+  print('Starting to count from', n)  # Печатаем начало отсчета
+  while n > 0:  # Пока n больше 0
+    yield n  # Генерируем текущее значение n
+    n -= 1  # Уменьшаем n на 1
+  print('Done!')  # Печатаем сообщение об окончании отсчета
 
 # Создает генератор – обратите внимание на отсутствие вывода
 c = countdown(3)
