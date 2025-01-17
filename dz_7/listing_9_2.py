@@ -1,12 +1,12 @@
 import os
 import asyncpg
-from aiohttp import web
-from aiohttp.web_app import Application
-from aiohttp.web_request import Request
-from aiohttp.web_response import Response
-from asyncpg import Record
-from asyncpg.pool import Pool
-from typing import List, Dict
+from aiohttp import web  # Импортирует модуль web из aiohttp для создания веб-приложений.
+from aiohttp.web_app import Application  # Импортирует класс Application для создания экземпляра веб-приложения.
+from aiohttp.web_request import Request  # Импортирует класс Request, который представляет HTTP-запрос от клиента.
+from aiohttp.web_response import Response  # Импортирует класс Response для формирования и отправки HTTP-ответов.
+from asyncpg import Record  # Импортирует класс Record из asyncpg для работы с результатами запросов к базе данных PostgreSQL.
+from asyncpg.pool import Pool  # Импортирует класс Pool для работы с пулом подключений к PostgreSQL.
+from typing import List, Dict  # Импортирует типы List и Dict для аннотирования типов данных (списки и словари) в коде.
 
 # Определяем маршруты для нашего веб-приложения
 routes = web.RouteTableDef()
