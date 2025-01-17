@@ -1,22 +1,26 @@
-#2.7 листинг
-import asyncio
 
-async def delay (delay_second: int) -> int:
-#какой тип переменной возвращает функция, лучше всегда указывать
-    print (f'засыпаю на {delay_second} секунд')
-    await asyncio.sleep(delay_second)
-    print(f'сон в течение {delay_second} cек закончился')
-    return delay_second
+import asyncio  # Импортируем модуль asyncio
 
-async def add_one(number: int) -> int:
-    return number + 1 
-    #питон отдает все мощности на calculate
-async def hello_world_message() -> str:
-    await delay(1)
-    return 'Hello World!'
-async def main() -> None:
-    message = await hello_world_message()
-    one_plus_one = await add_one(1)
-    print(one_plus_one) #выведет число int
-    print(message)
-asyncio.run(main())
+async def delay(delay_second: int) -> int:  # Определяем асинхронную функцию delay, которая принимает один параметр delay_second (количество секунд для задержки).
+    # Функция возвращает тип int (целое число), поэтому указываем это явно.
+    print(f'засыпаю на {delay_second} секунд')  # Выводим сообщение, что начинаем засыпать на указанное количество секунд.
+    await asyncio.sleep(delay_second)  # Ожидаем асинхронно указанное количество секунд. asyncio.sleep не блокирует основной поток.
+    print(f'сон в течение {delay_second} сек закончился')  # После завершения задержки выводим сообщение, что сон закончился.
+    return delay_second  # Возвращаем количество секунд, на которое "заснули".
+
+async def add_one(number: int) -> int:  # Определяем асинхронную функцию add_one, которая принимает одно целое число.
+    return number + 1  # Возвращаем результат прибавления 1 к переданному числу (функция фактически выполняет сложение).
+
+# Питон отдает все мощности на вычисление сложения внутри функции, так как функция просто выполняет одно математическое действие.
+
+async def hello_world_message() -> str:  # Определяем асинхронную функцию hello_world_message, которая возвращает строку.
+    await delay(1)  # Ожидаем 1 секунду с помощью функции delay (это задержка перед тем, как вернуть строку).
+    return 'Hello World!'  # Возвращаем строку "Hello World!" после задержки.
+
+async def main() -> None:  # Определяем главную асинхронную функцию main.
+    message = await hello_world_message()  # Вызов асинхронной функции hello_world_message и ожидание ее выполнения.
+    one_plus_one = await add_one(1)  # Вызов асинхронной функции add_one с аргументом 1 и ожидание результата.
+    print(one_plus_one)  # Выводим результат add_one, который будет равен 2 (1 + 1).
+    print(message)  # Выводим строку, полученную из hello_world_message (будет "Hello World!").
+
+asyncio.run(main())  # Запускаем асинхронную функцию main с помощью asyncio.run. Эта функция управляет циклом событий и запускает задачи.
