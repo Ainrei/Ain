@@ -1,17 +1,19 @@
-import asyncio
-#from util import delay вместо этого функция delay:
-async def delay (delay_second: int) -> int:
-#какой тип переменной возвращает функция, лучше всегда указывать
-    print (f'засыпаю на {delay_second} секунд')
-    await asyncio.sleep(delay_second)
-    print(f'сон в течение {delay_second} cек закончился')
-    return delay_second
+import asyncio  # Импортируем модуль asyncio для работы с асинхронным кодом в Python, который позволяет запускать несколько задач одновременно
 
-async def main():
-    sleep_for_three = asyncio.create_task(delay(10))
-    sleep_again = asyncio.create_task(delay(3))
-    sleep_once_more = asyncio.create_task(delay(8))
-    await sleep_for_three
-    await sleep_again
-    await sleep_once_more
-asyncio.run(main())
+# вместо использования внешнего модуля, мы определяем свою функцию delay
+async def delay(delay_second: int) -> int:  # Определяем асинхронную функцию delay, которая принимает аргумент delay_second (время задержки в секундах)
+    # указываем тип возвращаемого значения функции как int (целое число), чтобы было понятно, что она возвращает целое число
+    print(f'засыпаю на {delay_second} секунд')  # Выводим сообщение, что начинаем засыпать на указанный интервал времени
+    await asyncio.sleep(delay_second)  # Асинхронно ждем указанное количество секунд. asyncio.sleep не блокирует основной поток, а позволяет выполнять другие задачи.
+    print(f'сон в течение {delay_second} сек закончился')  # Выводим сообщение по завершению задержки
+    return delay_second  # Функция возвращает количество секунд, которые она ждала
+
+async def main():  # Определяем главную асинхронную функцию, которая будет запускать задачи
+    sleep_for_three = asyncio.create_task(delay(10))  # Создаем асинхронную задачу с задержкой 10 секунд
+    sleep_again = asyncio.create_task(delay(3))  # Создаем асинхронную задачу с задержкой 3 секунды
+    sleep_once_more = asyncio.create_task(delay(8))  # Создаем асинхронную задачу с задержкой 8 секунд
+    await sleep_for_three  # Ждем завершения выполнения задачи sleep_for_three
+    await sleep_again  # Ждем завершения выполнения задачи sleep_again
+    await sleep_once_more  # Ждем завершения выполнения задачи sleep_once_more
+
+asyncio.run(main())  # Запускаем главную асинхронную функцию main с помощью asyncio.run, которая управляет цикло
