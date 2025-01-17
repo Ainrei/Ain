@@ -1,8 +1,12 @@
 import numpy as np
 import pandas as pd
+# Импортируем функцию для разделения данных на обучающую и тестовую выборки
 from sklearn.model_selection import train_test_split
+# Импортируем классификатор наивного Байеса с гауссовым распределением
 from sklearn.naive_bayes import GaussianNB
+# Импортируем метрики для оценки точности модели и построения матрицы ошибок
 from sklearn.metrics import accuracy_score, confusion_matrix
+# Импортируем библиотеку для визуализации (heatmap)
 import seaborn as sns
 import matplotlib.pyplot as plt
 
