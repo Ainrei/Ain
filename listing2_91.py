@@ -1,28 +1,29 @@
 import asyncio
 #from util import delay вместо этого функция delay:
-async def delay (delay_second: int) -> int:
+async def delay (delay_second: int) -> int: # Определяем асинхронную функцию delay, которая принимает параметр delay_second (время задержки в секундах).
 #async нужен, потому что task относится к библиотеке async
 #какой тип переменной возвращает функция, лучше всегда указывать
     print (f'засыпаю на {delay_second} секунд')
-    await asyncio.sleep(delay_second)
-    print(f'сон в течение {delay_second} cек закончился')
-    return delay_second
+    await asyncio.sleep(delay_second) # Выводим сообщение, что начинаем "засыпать" на указанное количество секунд
+    print(f'сон в течение {delay_second} cек закончился') # Выводим сообщение, что задержка закончена
+    return delay_second # Возвращаем количество секунд, которые мы "спали". Функция возвращает тип int
+
+
 
 #первый вариант функции
-async def main():
-    tasks = []
-    for _ in range(10):  # Создаем 10 задач, можно 1000, но выводить много будет
-        task = asyncio.create_task(delay(3))
-        tasks.append(task)
+async def main(): 
+    tasks = [] # Создаем пустой список для хранения задач.
+    for _ in range(10):  # Создаем 10 задач, можно 1000, но выводить много будет (цикл повторяется 10 раз)
+        task = asyncio.create_task(delay(3))   # Создаем асинхронную задачу с задержкой 3 секунды
+        tasks.append(task)  # Добавляем задачу в список tasks
 
     # Ждем завершения всех задач
-    await asyncio.gather(*tasks)
-asyncio.run(main())
-
+    await asyncio.gather(*tasks) # asyncio.gather ожидает завершения всех задач, переданных в виде списка
+asyncio.run(main()) # Запускаем асинхронную функцию main с помощью asyncio.run, который автоматически запускает цикл событий
 
 #второй вариант функции
-async def main():
-    xs = [asyncio.create_task(delay(x)) for x in range(10)]
-    for x in xs:
-        await x
-asyncio.run(main())
+async def main(): # Определяем асинхронную функцию main.
+    xs = [asyncio.create_task(delay(x)) for x in range(10)]  # Создаем список из 10 задач, каждая из которых вызывает delay с разными задержками от 0 до 9 секунд
+    for x in xs:  # Перебираем все задачи в списке xs
+        await x  # Для каждой задачи ожидаем ее завершения
+asyncio.run(main())  # Запускаем асинхронную функцию main
