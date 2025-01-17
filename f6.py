@@ -1,7 +1,13 @@
+# импортируем time для отслеживания времени выполнения
 import time
+# импортируем wraps из модуля functools, которая поможет сохранить оригинальные метаданные функции, когда она завернута декоратором
 from functools import wraps
 
-# Декоратор, который выводит время выполнения.
+
+# декоратор, который выводит время выполнения
+# внутри него определяется обертка wrapper, которая начинает отслеживание времени с помощью time.perf_counter(), затем вызывает оригинальную функцию с переданными аргументами и получает ее результат
+# затем снова измеряется время с помощью time.perf_counter()
+
 def timethis(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -11,6 +17,9 @@ def timethis(func):
         print(f"{func.__name__} выполнен за {end - start:.8f} секунд")
         return result
     return wrapper
+
+
+# применяем декоратор к функции Фибоначчи
 
 @timethis
 def fibonacci(n):
@@ -24,6 +33,6 @@ def fibonacci(n):
             a, b = b, a + b
         return b
 
-# Пример использования
+# пример использования
 number = 10
 print(f"Число Фибоначчи {number} равно {fibonacci(number)}")
