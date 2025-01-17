@@ -1,10 +1,10 @@
-import time
-import requests
-def read_example() -> None:
-    response = requests.get('https://www.example.com')
-    print(response.status_code)
-sync_start = time.time()
-read_example()
-read_example()
-sync_end = time.time()
-print(f'Синхронное выполнение заняло: {sync_end - sync_start:.4f} с.')
+import time # Импортируем модуль time, который используется для измерения времени выполнения программы
+import requests # Импортируем модуль requests для выполнения HTTP-запросов
+def read_example() -> None: # Определяем функцию, которая будет выполнять HTTP-запрос к указанному URL и выводить код состояния
+    response = requests.get('https://www.example.com') # Отправляем GET-запрос по указанному URL (https://www.example.com) с помощью библиотеки requests
+    print(response.status_code)  # Печатаем код состояния HTTP-ответа (например, 200 для успешного запроса)
+sync_start = time.time()# Сохраняем текущее время перед началом выполнения синхронных операций (используется для измерения времени выполнения)
+read_example()  # Выполняем первый вызов функции read_example, который отправляет запрос и выводит статус код ответа
+read_example() # Выполняем 2й
+sync_end = time.time() # Сохраняем текущее время после завершения выполнения синхронных операций (включает два запроса)
+print(f'Синхронное выполнение заняло: {sync_end - sync_start:.4f} с.') # Выводим время, затраченное на выполнение двух запросов, с точностью до 4 знаков после запятой
